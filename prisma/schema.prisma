@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Measurement {
+  id        Int      @id @default(autoincrement())
+  createdOn DateTime @default(now())
+  archivedOn DateTime?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  weight    Int
+  neck      Int
+  chest     Int
+  stomach   Int
+  hips      Int
+  biceps    Int
+  calf      Int
+  waist     Int
+}
+
+model ProductUsers {
+  id          Int    @id @default(autoincrement())
+  createdOn  DateTime @default(now())
+  archivedOn DateTime?
+  weight     Float
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+}
+
+model Recipe {
+  id          Int    @id @default(autoincrement())
+  name        String
+  type        String
+  calories    Int
+  photo       String
+  ingredients String[]
+  description String
+}
+
+model Product {
+  id           Int    @id @default(autoincrement())
+  name         String
+  calories     Int
+  protein      Int
+  carbohydrate Int
+  fat          Int
+  users        ProductUsers[]
+}
+
+model Workout {
+  id         Int          @id @default(autoincrement())
+  userId     Int?
+  user       User?     @relation(fields: [userId], references: [id])
+  name       String
+  createdOn  DateTime @default(now())
+  archivedOn DateTime?
+  exercises String[]
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  username  String
+  password  String
+  gender    String
+  age       Int
+  height    Int
+  goal      String
+  lifestyle String
+  calories  Float?
+  measurements Measurement[]
+  products    ProductUsers[]
+  workout   Workout[]
+}
