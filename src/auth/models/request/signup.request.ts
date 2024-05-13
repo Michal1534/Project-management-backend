@@ -2,61 +2,74 @@ import { IsNotEmpty, Matches, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SignupRequest {
-  @ApiProperty({
-    description: 'Username - max length 20 letters',
-    example: 'username',
-  })
-  @IsNotEmpty()
-  @Matches(RegExp('^[a-zA-Z0-9\\-]+$'))
-  @MaxLength(20)
-  username: string;
+    @ApiProperty({
+        description: 'Username - max length 20 letters',
+        example: 'username',
+    })
+    @IsNotEmpty()
+    @Matches(RegExp('^[a-zA-Z0-9\\-]+$'))
+    @MaxLength(20)
+    username: string;
 
-  @ApiProperty({
-    description: 'Password - min length 8 letters',
-    example: 'password',
-  })
-  @IsNotEmpty()
-  @MinLength(8)
-  password: string;
+    @ApiProperty({
+        description: 'Password - min length 5 letters',
+        example: 'password',
+    })
+    @IsNotEmpty()
+    @MinLength(5)
+    password: string;
 
-  @ApiProperty({
-    description: 'Gender - male/female',
-    example: 'male',
-  })
-  @IsNotEmpty()
-  gender: string;
+    @ApiProperty({
+        description: 'First name - max length 20 letters',
+        example: 'first_name',
+    })
+    @IsNotEmpty()
+    @MaxLength(20)
+    firstName: string;
 
-  @ApiProperty({
-    description: 'Age',
-    example: 18,
-  })
-  @IsNotEmpty()
-  age: number;
+    @ApiProperty({
+        description: 'Last name - max length 20 letters',
+        example: 'last_name',
+    })
+    @IsNotEmpty()
+    @MaxLength(20)
+    lastName: string;
 
-  @ApiProperty({
-    description: 'Height',
-    example: 180,
-  })
-  @IsNotEmpty()
-  height: number;
+    @ApiProperty({
+        description: 'Email - max length 50 letters',
+        example: 'email',
+    })
+    @IsNotEmpty()
+    @MaxLength(50)
+    email: string;
 
-  @ApiProperty({
-    description: 'Goal',
-    example: 'Lose',
-  })
-  @IsNotEmpty()
-  goal: string;
+    @ApiProperty({
+        description: 'Position - max length 20 letters',
+        example: 'position',
+    })
+    @IsNotEmpty()
+    @MaxLength(20)
+    position: string;
 
-  @ApiProperty({
-    description: 'Lifestyle',
-    example: 'Lightly Active',
-  })
-  @IsNotEmpty()
-  lifestyle: string;
+    @ApiProperty({
+        description: 'Role - max length 20 letters',
+        example: 'role',
+    })
+    @IsNotEmpty()
+    @MaxLength(20)
+    role: string;
 
-  @ApiProperty({
-    description: 'Calories',
-    example: 0,
-  })
-  calories: number;
+    @ApiProperty({
+        description: 'availability',
+        example: true,
+    })
+    @IsNotEmpty()
+    availability: boolean;
+
+    @ApiProperty({
+        description: 'workload',
+        example: 0,
+    })
+    @IsNotEmpty()
+    workload: number;
 }

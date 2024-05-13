@@ -1,24 +1,51 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { UpdateUserCaloriesRequest } from './request/update-user-calories.request';
+import { CreateUserRequest } from './request/create-user.request';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('users')
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) {}
 
-  @Get(':id')
-  async findOneUserById(@Param('id') id: number) {
-    console.log('One user fetched with id: ' + id);
-    return this.userService.getOneUser(+id);
-  }
+    @Get()
+    @UseGuards(AuthGuard('jwt'))
+    async findAllUsers() {
+        console.log('All users fetched');
+        return this.userService.getAllUsers();
+    }
 
-  @Put('update-calories')
-  async updateUserCaloriesById(
-    @Body() updateUserCalories: UpdateUserCaloriesRequest,
-  ) {
-    console.log('User calories updated');
-    return this.userService.updateUserCalories(updateUserCalories);
-  }
+    @Get(':id')
+    async findOneUserById(@Param('id') id: number) {
+        console.log('One user fetched with id: ' + id);
+        return this.userService.getOneUser(+id);
+    }
+
+    @Post('create-user')
+    async createUser(@Body() createUser: CreateUserRequest) {
+        console.log('COUCOU', createUser);
+        console.log('User created');
+        return this.userService.createUser(createUser);
+    }
+
+    @Put(':id')
+    async updateUser(@Param('id') id: number, @Body() updateUser: CreateUserRequest) {
+        console.log('User updated with id: ' + id);
+        return this.userService.updateUser(id, updateUser);
+    }
+
+    @Delete(':id')
+    async deleteUser(@Param('id') id: number) {
+        console.log('User deleted with id: ' + id);
+        return this.userService.deleteUser(+id);
+    }
+
+    // @Put('update-calories')
+    // async updateUserCaloriesById(
+    //   @Body() updateUserCalories: UpdateUserCaloriesRequest,
+    // ) {
+    //   console.log('User calories updated');
+    //   return this.userService.updateUserCalories(updateUserCalories);
+    // }
 }

@@ -1,25 +1,23 @@
 import type { User } from '@prisma/client';
 
 export class UserResponse {
-  id: number;
-  username: string;
-  age: number;
-  height: number;
-  gender: string;
-  goal: string;
-  lifestyle: string;
-  calories: number;
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    position: string;
+    role: string;
 
-  static fromUserEntity(entity: User): UserResponse {
-    const response = new UserResponse();
-    response.id = entity.id;
-    response.username = entity.username;
-    response.age = entity.age;
-    response.height = entity.height;
-    response.gender = entity.gender;
-    response.goal = entity.goal;
-    response.lifestyle = entity.lifestyle;
-    response.calories = entity.calories;
-    return response;
-  }
+    static fromUserEntity(entity: User): UserResponse {
+        const response = new UserResponse();
+        response.id = entity.id;
+        response.username = entity.username;
+        response.first_name = entity.first_name;
+        response.last_name = entity.last_name;
+        response.email = entity.email;
+        response.position = entity.position;
+        response.role = entity.role;
+        return response;
+    }
 }
