@@ -16,6 +16,10 @@ export class TaskService {
         console.log('GET task successful');
         return this.prismaService.task.findUnique({
             where: { id: id },
+            include: {
+                assigned_user: true,
+                reported_by_user: true,
+            },
         });
     }
 
@@ -42,7 +46,7 @@ export class TaskService {
             task;
         const newTask = this.prismaService.task.create({
             data: {
-                assigned_user_id: assignedTo,
+                assigned_user_id: assignedTo || null,
                 reported_by_user_id: createdBy,
                 name,
                 priority,
@@ -61,6 +65,8 @@ export class TaskService {
     async updateTask(id: number, updateTask: CreateTaskRequest): Promise<Task> {
         const { assignedTo, createdBy, name, priority, storyPoints, type, sprintId, description, status, component } =
             updateTask;
+
+        console.log(assignedTo, 'test');
         const updatedTask = this.prismaService.task.update({
             where: {
                 id: id,

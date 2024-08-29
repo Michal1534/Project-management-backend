@@ -10,17 +10,22 @@ export class CreateSprintRequest {
     name: string;
 
     @ApiProperty({
+        description: 'status',
+        example: 'NOT_STARTED',
+    })
+    @IsNotEmpty()
+    status: string;
+
+    @ApiProperty({
         description: 'start_date',
         example: new Date(),
     })
-    @IsNotEmpty()
     startDate: Date;
 
     @ApiProperty({
         description: 'end_date',
         example: new Date(),
     })
-    @IsNotEmpty()
     endDate: Date;
 
     @ApiProperty({

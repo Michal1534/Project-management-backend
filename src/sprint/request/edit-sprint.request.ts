@@ -1,13 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateVacationRequest {
+export class EditSprintRequest {
     @ApiProperty({
-        description: 'user_id',
-        example: 1,
+        description: 'sprint_name',
+        example: 'This is a sprint',
     })
     @IsNotEmpty()
-    userId: number;
+    name: string;
+
+    @ApiProperty({
+        description: 'status',
+        example: 'NOT_STARTED',
+    })
+    @IsNotEmpty()
+    status: string;
+
+    @ApiProperty({
+        description: 'start_date',
+        example: new Date(),
+    })
+    @IsNotEmpty()
+    startDate: Date;
+
+    @ApiProperty({
+        description: 'end_date',
+        example: new Date(),
+    })
+    @IsNotEmpty()
+    endDate: Date;
 
     @ApiProperty({
         description: 'project_id',
@@ -15,25 +36,4 @@ export class CreateVacationRequest {
     })
     @IsNotEmpty()
     projectId: number;
-
-    @ApiProperty({
-        description: 'start_date',
-        example: '2021-07-01',
-    })
-    @IsNotEmpty()
-    startDate: string;
-
-    @ApiProperty({
-        description: 'end_date',
-        example: '2021-07-05',
-    })
-    @IsNotEmpty()
-    endDate: string;
-
-    @ApiProperty({
-        description: 'reason',
-        example: 'Vacation',
-    })
-    @IsNotEmpty()
-    reason: string;
 }

@@ -60,11 +60,11 @@ export class SignupRequest {
     role: string;
 
     @ApiProperty({
-        description: 'availability',
-        example: true,
+        description: 'expirience',
+        example: 'Junior',
     })
     @IsNotEmpty()
-    availability: boolean;
+    expirience: string;
 
     @ApiProperty({
         description: 'workload',

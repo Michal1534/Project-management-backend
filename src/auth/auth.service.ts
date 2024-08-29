@@ -27,7 +27,7 @@ export class AuthService {
                     email: signupRequest.email,
                     position: signupRequest.position,
                     role: signupRequest.role,
-                    availability: true, // Add the missing property 'availability'
+                    expirience: signupRequest.expirience,
                     workload: 1, // Add the missing property 'workload'
                 },
                 select: null,

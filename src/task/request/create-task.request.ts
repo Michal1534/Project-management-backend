@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateTaskRequest {
     @ApiProperty({
@@ -47,9 +47,10 @@ export class CreateTaskRequest {
     @ApiProperty({
         description: 'assigned_to',
         example: 1,
+        required: false,
     })
-    @IsNotEmpty()
-    assignedTo: number;
+    @IsOptional()
+    assignedTo?: number;
 
     @ApiProperty({
         description: 'created_by',

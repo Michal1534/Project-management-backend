@@ -15,13 +15,7 @@ export class VacationService {
     async getVacationsByProject(projectId: number): Promise<Vacation[]> {
         return this.prismaService.vacation.findMany({
             where: {
-                user: {
-                    user_projects: {
-                        some: {
-                            project_id: projectId,
-                        },
-                    },
-                },
+                project_id: projectId,
             },
             include: {
                 user: true,
@@ -30,10 +24,12 @@ export class VacationService {
     }
 
     async createVacation(vacation: CreateVacationRequest): Promise<Vacation> {
-        const { userId, startDate, endDate, reason } = vacation;
+        const { userId, startDate, endDate, reason, projectId } = vacation;
+        console.log(projectId);
         const newVacation = this.prismaService.vacation.create({
             data: {
                 user_id: userId,
+                project_id: projectId,
                 start_date: startDate,
                 end_date: endDate,
                 reason: reason,

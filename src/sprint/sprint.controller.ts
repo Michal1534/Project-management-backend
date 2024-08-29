@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SprintService } from './sprint.service';
 import { CreateSprintRequest } from './request/create-sprint.request';
+import { EditSprintRequest } from './request/edit-sprint.request';
 
 @ApiTags('sprint')
 @Controller('sprint')
@@ -35,7 +36,7 @@ export class SprintController {
     }
 
     @Put(':id')
-    async updateSprint(@Param('id') id: number, @Body() updateSprint: CreateSprintRequest) {
+    async updateSprint(@Param('id') id: number, @Body() updateSprint: EditSprintRequest) {
         console.log('Sprint updated with id: ' + id);
         return this.sprintService.updateSprint(id, updateSprint);
     }

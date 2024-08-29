@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../common/services/prisma/prisma.service';
 import { Sprint } from '@prisma/client';
 import { CreateSprintRequest } from './request/create-sprint.request';
+import { EditSprintRequest } from './request/edit-sprint.request';
 
 @Injectable()
 export class SprintService {
@@ -14,7 +15,14 @@ export class SprintService {
                 project_id: projectId,
             },
             include: {
-                tasks: true,
+                tasks: {
+                    include: {
+                        assigned_user: true,
+                    },
+                },
+            },
+            orderBy: {
+                id: 'asc',
             },
         });
     }
@@ -26,24 +34,33 @@ export class SprintService {
                 id: sprintId,
                 project_id: projectId,
             },
+            include: {
+                tasks: {
+                    include: {
+                        assigned_user: true,
+                    },
+                },
+            },
         });
     }
 
     async createSprint(sprint: CreateSprintRequest): Promise<Sprint> {
-        const { name, startDate, endDate, projectId } = sprint;
+        const { name, startDate, endDate, projectId, status } = sprint;
         const newSprint = this.prismaService.sprint.create({
             data: {
                 name,
-                start_date: startDate,
-                end_date: endDate,
+                start_date: startDate || null,
+                end_date: endDate || null,
                 project_id: projectId,
+                status,
             },
         });
         return newSprint;
     }
 
-    async updateSprint(id: number, updateSprint: CreateSprintRequest): Promise<Sprint> {
-        const { name, startDate, endDate, projectId } = updateSprint;
+    async updateSprint(id: number, updateSprint: EditSprintRequest): Promise<Sprint> {
+        const { name, startDate, endDate, projectId, status } = updateSprint;
+        console.log(startDate, endDate);
         const updatedSprint = this.prismaService.sprint.update({
             where: {
                 id: id,
@@ -53,6 +70,7 @@ export class SprintService {
                 start_date: startDate,
                 end_date: endDate,
                 project_id: projectId,
+                status,
             },
         });
         return updatedSprint;

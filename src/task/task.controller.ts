@@ -60,7 +60,7 @@ export class TaskController {
 
     @Put(':id')
     async updateTask(@Param('id') id: number, @Body() updateTask: CreateTaskRequest) {
-        console.log('Task updated with id: ' + id);
+        console.log('Task updated with id: ' + id, updateTask);
         return this.taskService.updateTask(id, updateTask);
     }
 

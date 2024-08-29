@@ -13,6 +13,12 @@ export class CommentService {
             where: {
                 task_id: taskId,
             },
+            include: {
+                user: true,
+            },
+            orderBy: {
+                timestamp: 'desc',
+            },
         });
     }
 

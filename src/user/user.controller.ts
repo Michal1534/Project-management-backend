@@ -3,6 +3,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './request/create-user.request';
 import { AuthGuard } from '@nestjs/passport';
+import { EditUserRequest } from './request/edit-user-request';
 
 @ApiTags('users')
 @Controller('users')
@@ -10,7 +11,6 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Get()
-    @UseGuards(AuthGuard('jwt'))
     async findAllUsers() {
         console.log('All users fetched');
         return this.userService.getAllUsers();
@@ -22,15 +22,20 @@ export class UserController {
         return this.userService.getOneUser(+id);
     }
 
+    @Get('not-in-project/:id')
+    async findUsersNotInProject(@Param('id') id: number) {
+        console.log('Users not in project fetched with projectId ' + id);
+        return this.userService.getUsersNotInProject(id);
+    }
+
     @Post('create-user')
     async createUser(@Body() createUser: CreateUserRequest) {
-        console.log('COUCOU', createUser);
         console.log('User created');
         return this.userService.createUser(createUser);
     }
 
     @Put(':id')
-    async updateUser(@Param('id') id: number, @Body() updateUser: CreateUserRequest) {
+    async updateUser(@Param('id') id: number, @Body() updateUser: EditUserRequest) {
         console.log('User updated with id: ' + id);
         return this.userService.updateUser(id, updateUser);
     }
