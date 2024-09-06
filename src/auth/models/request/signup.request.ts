@@ -44,12 +44,12 @@ export class SignupRequest {
     email: string;
 
     @ApiProperty({
-        description: 'Position - max length 20 letters',
-        example: 'position',
+        description: 'specialization - max length 20 letters',
+        example: 'specialization',
     })
     @IsNotEmpty()
     @MaxLength(20)
-    position: string;
+    specialization: string;
 
     @ApiProperty({
         description: 'Role - max length 20 letters',

@@ -45,11 +45,11 @@ export class CreateUserRequest {
     username: string;
 
     @ApiProperty({
-        description: 'position',
+        description: 'specialization',
         example: 'developer',
     })
     @IsNotEmpty()
-    position: string;
+    specialization: string;
 
     @ApiProperty({
         description: 'expirience',

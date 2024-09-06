@@ -10,11 +10,7 @@ import { PrismaService } from '../common/services/prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly prismaService: PrismaService,
-        private readonly userService: UserService,
-        private readonly jwtService: JwtService
-    ) {}
+    constructor(private readonly prismaService: PrismaService, private readonly jwtService: JwtService) {}
 
     async signup(signupRequest: SignupRequest): Promise<void> {
         try {
@@ -25,19 +21,18 @@ export class AuthService {
                     first_name: signupRequest.firstName,
                     last_name: signupRequest.lastName,
                     email: signupRequest.email,
-                    position: signupRequest.position,
+                    specialization: signupRequest.specialization,
                     role: signupRequest.role,
                     expirience: signupRequest.expirience,
-                    workload: 1, // Add the missing property 'workload'
+                    workload: 1,
                 },
                 select: null,
             });
         } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                if (error.code === 'P2002') {
-                    throw new ConflictException();
-                } else throw error;
-            } else throw error;
+            if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+                throw new ConflictException('Username already exists');
+            }
+            throw error;
         }
     }
 

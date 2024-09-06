@@ -34,7 +34,7 @@ export class UserService {
 
     async createUser(createUserRequest: CreateUserRequest): Promise<User> {
         console.log('Test', createUserRequest);
-        const { firstName, lastName, email, password, role, username, position, expirience } = createUserRequest;
+        const { firstName, lastName, email, password, role, username, specialization, expirience } = createUserRequest;
         const newUser = this.prismaService.user.create({
             data: {
                 first_name: firstName,
@@ -44,7 +44,7 @@ export class UserService {
                 password,
                 role,
                 username,
-                position,
+                specialization,
                 expirience,
             },
         });
@@ -53,7 +53,7 @@ export class UserService {
     }
 
     async updateUser(id: number, updateUserRequest: EditUserRequest): Promise<User> {
-        const { firstName, lastName, email, role, username, position } = updateUserRequest;
+        const { firstName, lastName, email, role, username, specialization } = updateUserRequest;
         const updateUser = this.prismaService.user.update({
             where: {
                 id: id,
@@ -64,7 +64,7 @@ export class UserService {
                 email,
                 role,
                 username,
-                position,
+                specialization,
             },
         });
         console.log('PUT user successful');
@@ -80,16 +80,4 @@ export class UserService {
         console.log('DELETE user successful');
         return user;
     }
-
-    // async updateUserCalories(
-    //   updateUserCaloriesRequest: UpdateUserCaloriesRequest,
-    // ): Promise<User> {
-    //   const { id, calories } = updateUserCaloriesRequest;
-    //   const updateUserCalories = this.prismaService.user.update({
-    //     where: { id: id },
-    //     data: { calories: calories },
-    //   });
-    //   console.log('PUT userCalories successful');
-    //   return updateUserCalories;
-    // }
 }

@@ -1,8 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserRequest } from './request/create-user.request';
-import { AuthGuard } from '@nestjs/passport';
 import { EditUserRequest } from './request/edit-user-request';
 
 @ApiTags('users')
@@ -45,12 +44,4 @@ export class UserController {
         console.log('User deleted with id: ' + id);
         return this.userService.deleteUser(+id);
     }
-
-    // @Put('update-calories')
-    // async updateUserCaloriesById(
-    //   @Body() updateUserCalories: UpdateUserCaloriesRequest,
-    // ) {
-    //   console.log('User calories updated');
-    //   return this.userService.updateUserCalories(updateUserCalories);
-    // }
 }

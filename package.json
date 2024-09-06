@@ -1,5 +1,5 @@
 {
-  "name": "form-masters-backend",
+  "name": "magisterka-backend",
   "version": "0.0.1",
   "prisma": {
     "schema": "prisma/schema.prisma",
